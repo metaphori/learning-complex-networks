@@ -1,0 +1,5 @@
+# Example adjacency list network
+# source target1 target2 ...
+A B C D
+B D
+C D A

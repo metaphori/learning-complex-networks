@@ -1,0 +1,5 @@
+# Example edge list network
+# source target weight
+A B 1
+A C 2
+B D 2

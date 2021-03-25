@@ -83,7 +83,7 @@ python-dateutil==2.7.5
 python-xlib==0.26
 pytz==2018.9
 PyWavelets==1.0.1
-PyYAML==3.13
+PyYAML==5.4
 pyzmq==17.1.2
 QDarkStyle==2.8
 qtconsole==4.4.3

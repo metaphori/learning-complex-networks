@@ -1,0 +1,14 @@
+virtualenv venev --python=python3.8
+source venv/bin/activate
+
+pip freeze > requirements.txt
+pip install -r requirements.txt
+
+# use the following to generate a .ipynb file
+jupytext --sync process-survey-data.Rmd
+
+# convert notebook to html
+jupyter nbconvert --to html process-survey-data.ipynb
+
+# launching the jupyter server
+jupyter notebook

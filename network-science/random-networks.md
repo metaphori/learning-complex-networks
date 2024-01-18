@@ -68,18 +68,19 @@ plt.show()
 
 ```python
 def print_network_characteristics(g):
+    n = g.number_of_nodes()
     print(f"### {g}")
-    print("Number of nodes: ", g.number_of_nodes())
-    print("Number of edges: ", g.number_of_edges())
-    expected_nedges = g.p * g.number_of_nodes() * (g.number_of_nodes() - 1) / 2
-    print("Expected number of edges (p * N * (N-1)/2): ",  expected_nedges)
-    print("Min/Max degree", min([d for n, d in g.degree()]), " -- ", max([d for n, d in g.degree()]))
-    print("Variance in expected degree (p*(1-p)*(N-1)): ", g.p * (1 - g.p) * (g.number_of_nodes() - 1))
+    print("Number of nodes: ", n)
+    expected_nedges = g.p * g.number_of_nodes() * (n - 1) / 2
+    print("Number of edges: ", g.number_of_edges(), " - Expected number of edges (p * N * (N-1)/2): ",  expected_nedges)
+    print("Min degree = ", min([d for n, d in g.degree()]), " -- Max degree = ", max([d for n, d in g.degree()]) , )
     # print("Degree assortativity: ", nx.degree_assortativity_coefficient(g))
-    print("Average degree: ", sum([d for n, d in g.degree()]) / g.number_of_nodes())
-    print("Expected average degree (p * (N-1)): ", g.p * (g.number_of_nodes() - 1), " ; 2<L> / N = ", 2 * expected_nedges / g.number_of_nodes())
-    print("Average number of links: ", 2 * g.number_of_edges() / g.number_of_nodes())
-    print("Average clustering coefficient: ", nx.average_clustering(g))
+    expected_avg_degree = g.p * (n - 1)
+    print("Average degree: ", sum([d for n, d in g.degree()]) / n, 
+          " -- Expected: <k> = (p * (N-1)): ", expected_avg_degree, " = 2<L> / N = ", 2 * expected_nedges / n)
+    print("Variance in expected degree (p*(1-p)*(N-1)): ", g.p * (1 - g.p) * (n - 1))
+    print("Average number of links: ", 2 * g.number_of_edges() / n)
+    print("Average clustering coefficient: ", nx.average_clustering(g), " -- Expected: <C> = <k>/N = ", expected_avg_degree / n)
     if nx.is_connected(g):
         print("Diameter: ", nx.diameter(g))
         print("Average shortest path length: ", nx.average_shortest_path_length(g))

@@ -153,3 +153,23 @@ f = plt.figure(figsize = (20, 8))
 axes = f.subplots(nrows = 1, ncols = 4)
 for n in nets: nx.draw_circular(n, ax = axes[nets.index(n)])
 ```
+
+Let's highlight the largest connected component (**giant component**).
+
+```python
+def highlight_largest_component(g, pos, ax):
+    connected_components = sorted(nx.connected_components(g), key = len, reverse = True)
+    if len(connected_components) == 0: return
+    giant_component = connected_components[0]
+    print("Giant component: ", giant_component)
+    highlight_edges = g.subgraph(giant_component).edges()
+    nx.draw_networkx_edges(g, pos, edgelist=highlight_edges, edge_color='red', width=2, ax=ax)
+
+f = plt.figure(figsize = (20, 8))
+axes = f.subplots(nrows = 1, ncols = 4)
+for n in nets: 
+    pos = nx.random_layout(n)
+    ax = axes[nets.index(n)]
+    nx.draw(n, pos, ax=ax)
+    highlight_largest_component(n, pos, ax)
+```
